@@ -19,12 +19,7 @@ while true; do
 	mv crawl crawl.old || break
 	cd $code || break
 
-	nice make -j3 prefix=/var/crawl GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y install || break
-
-	rsync -a webserver/ /var/crawl/webserver/ || break
-	if [ "$user" ]; then
-		chown -R crawl /var/crawl || break
-	fi
+	nice make -j3 prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y install || break
 
 	success=true
 done
@@ -33,5 +28,6 @@ if [ "$success" ]; then
 	echo "Successful."
 else
 	echo "Failed!"
+	exit 1
 fi
 
