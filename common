@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ ! "$commonSourced" ]; then
+
+if [ ! -f localConfig ]; then
+	echo "Make a localConfig out of localConfig.example before running this."
+	exit 1
+fi
+
+source localConfig || exit 1
 # usage: hydrate {from file} {to file}
 #   will replace variables in from file with values of variables defined in current shell environment
 unset hydrate
@@ -30,3 +38,5 @@ IFS="$OIFS"
 return $returnValue
 }
 
+commonSourced=true
+fi
