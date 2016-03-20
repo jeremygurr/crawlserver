@@ -4,4 +4,5 @@ gid=1001
 
 webport=80
 code=/t/dcssca/crawl-ref/source
+crawlserver=/t/dcssca/crawlserver
 web=/var/crawl
