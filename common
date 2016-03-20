@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# usage: hydrate {from file} {to file}
+#   will replace variables in from file with values of variables defined in current shell environment
+unset hydrate
+hydrate() {
+local from to line
+from="$1"
+shift
+to="$1"
+local returnValue=0
+if [ -f "$to" ]; then
+	echo "File already exists: $to"
+	return 1
+fi
+while true; do
+    if [ ! -f "$from" ]; then
+        echo "Missing file: $from"
+        fail
+    fi
+    local OIFS="$IFS"
+    IFS=$'\n'
+    while read -r line; do
+        line="${line//\"/\\\"}"
+        eval "echo \"$line\"" >>$to || fail
+    done < $from
+    break
+done
+IFS="$OIFS"
+return $returnValue
+}
+

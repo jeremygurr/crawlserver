@@ -1,0 +1,7 @@
+user=crawl
+uid=1001
+gid=1001
+
+webport=80
+code=/t/dcssca/crawl-ref/source
+web=/var/crawl

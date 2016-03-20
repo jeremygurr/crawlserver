@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [ ! -f localConfig ]; then
+	echo "Make a localConfig out of localConfig.example before running this."
+	exit 1
+fi
+
+source localConfig || exit 1
+unset success
+while true; do
+	mkdir -p $web/bin || break
+	touch $web/bin/crawl $web/bin/crawl.old
+	cd $web/bin || break
+	while true; do
+		rm crawl.old && break
+		echo "Failed, but will retry in a min..."
+		sleep 60
+	done
+	mv crawl crawl.old || break
+	cd $code || break
+
+	nice make -j3 prefix=/var/crawl GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y install || break
+
+	rsync -a webserver/ /var/crawl/webserver/ || break
+	if [ "$user" ]; then
+		chown -R crawl /var/crawl || break
+	fi
+
+	success=true
+done
+
+if [ "$success" ]; then
+	echo "Successful."
+else
+	echo "Failed!"
+fi
+
