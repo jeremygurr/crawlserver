@@ -39,6 +39,8 @@ game_data_no_cache = True
 # Watch socket dirs for games not started by the server
 watch_socket_dirs = False
 
+global_morgue_path = "./rcs"
+
 # Game configs
 # %n in paths and urls is replaced by the current username
 # morgue_url is for a publicly available URL to access morgue_path
