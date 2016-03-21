@@ -17,7 +17,7 @@ bind_port = ${webport}
 # )
 
 logging_config = {
-    "filename": "webtiles.log",
+#    "filename": "webtiles.log",
     "level": logging.INFO,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
@@ -122,7 +122,7 @@ umask = None # e.g. 0077
 chroot = None
 
 pidfile = None
-daemon = True # If true, the server will detach from the session after startup
+daemon = False # If true, the server will detach from the session after startup
 
 # Set to a URL with %s where lowercased player name should go in order to
 # hyperlink WebTiles spectator names to their player pages.
