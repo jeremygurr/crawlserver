@@ -15,7 +15,7 @@ while true; do
 	mv crawl crawl.old || break
 	cd $code || break
 
-	nice make -j3 -DNOASSERTS prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y debug-lite install || break
+	nice make "$@" NOASSERTS=True prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y debug-lite install || break
 
 	success=true
     break
