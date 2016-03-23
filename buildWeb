@@ -8,7 +8,9 @@ while true; do
 	touch $web/bin/crawl $web/bin/crawl.old
 	cd $web/bin || break
 
+	cd $code || break
 	nice make -j2 NOASSERTS=True prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y debug-lite || break
+	cd $web/bin || break
 
 	while true; do
 		rm crawl.old && break
