@@ -2,7 +2,7 @@
 
 source common 
 
-make="nice make -j2 NOASSERTS=True prefix=${web} GAME=\"crawl\" USE_DGAMELAUNCH=y WEBTILES=y"
+make="nice make -j2 NOASSERTS=True prefix=${web} GAME=\"crawl.new\" USE_DGAMELAUNCH=y WEBTILES=y"
 
 unset success
 while true; do
@@ -19,10 +19,13 @@ while true; do
 		echo "Failed, but will retry in a min..."
 		sleep 60
 	done
-	mv crawl crawl.old || break
 	cd $code || break
 
 	STRIP=echo $make install || break
+
+	cd $web/bin || break
+	mv crawl crawl.old || break
+	mv crawl.new crawl || break
 
 	success=true
     break
