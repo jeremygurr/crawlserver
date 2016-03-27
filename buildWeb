@@ -11,7 +11,7 @@ while true; do
 	cd $web/bin || break
 
 	cd $code || break
-	STRIP=echo $make debug-lite || break
+	$make debug-lite || break
 	cd $web/bin || break
 
 	while true; do
@@ -21,7 +21,7 @@ while true; do
 	done
 	cd $code || break
 
-	STRIP=echo $make install || break
+	$make debug-lite install || break
 
 	cd $web/bin || break
 	mv crawl crawl.old || break
