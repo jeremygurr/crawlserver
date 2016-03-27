@@ -2,6 +2,8 @@
 
 source common 
 
+make="nice make -j2 NOASSERTS=True prefix=${web} GAME=\"crawl\" USE_DGAMELAUNCH=y WEBTILES=y"
+
 unset success
 while true; do
 	mkdir -p $web/bin || break
@@ -9,7 +11,7 @@ while true; do
 	cd $web/bin || break
 
 	cd $code || break
-	nice make -j2 NOASSERTS=True prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y debug-lite || break
+	STRIP=echo $make debug-lite || break
 	cd $web/bin || break
 
 	while true; do
@@ -20,7 +22,7 @@ while true; do
 	mv crawl crawl.old || break
 	cd $code || break
 
-	nice make NOASSERTS=True prefix=${web} GAME="crawl" USE_DGAMELAUNCH=y WEBTILES=y debug-lite install || break
+	STRIP=echo $make install || break
 
 	success=true
     break
