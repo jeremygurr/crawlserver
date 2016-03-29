@@ -47,16 +47,16 @@ global_morgue_path = "./rcs"
 # %n in paths and urls is replaced by the current username
 # morgue_url is for a publicly available URL to access morgue_path
 games = OrderedDict([
-    ("dcss-ca-v1", dict(
-        name = "DCSS:CA v1",
-        crawl_binary = "./bin/crawl-v1",
+    ("dcss-ca-v1.0", dict(
+        name = "DCSS:CA v1.0",
+        crawl_binary = "./bin/crawl-v1.0",
         rcfile_path = "./rcs/",
         macro_path = "./rcs/",
         morgue_path = "./rcs/%n",
         inprogress_path = "./rcs/running",
         ttyrec_path = "./rcs/ttyrecs/%n",
         socket_path = "./rcs",
-        client_path = "./webserver-v1/game_data/",
+        client_path = "./webserver/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
 ])
