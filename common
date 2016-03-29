@@ -14,12 +14,20 @@ fi
 
 source localConfig || exit 1
 
+if [ ! "$v" ]; then
+	echo "Missing v"
+	exit 1
+fi
+
 if [ ! "$code1" ]; then
-	echo "Missing $code1"
+	echo "Missing code1"
 	exit 1
 fi
 
 code="$code1/dcssca-$v/$code2"
+if [ "$v" == local ]; then
+    code="$code1/dcssca/$code2"
+fi
 
 if [ ! -d "$code" ]; then
 	cd "$code1" || exit 1
