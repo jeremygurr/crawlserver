@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import logging
 try:
     from collections import OrderedDict
@@ -17,7 +19,7 @@ bind_port = ${webport}
 # )
 
 logging_config = {
-#    "filename": "webtiles.log",
+    "filename": "webtiles.log",
     "level": logging.INFO,
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
@@ -45,16 +47,16 @@ global_morgue_path = "./rcs"
 # %n in paths and urls is replaced by the current username
 # morgue_url is for a publicly available URL to access morgue_path
 games = OrderedDict([
-    ("dcss-ca-trunk", dict(
-        name = "DCSS:CA trunk",
-        crawl_binary = "./bin/crawl",
+    ("dcss-ca-v1", dict(
+        name = "DCSS:CA v1",
+        crawl_binary = "./bin/crawl-v1",
         rcfile_path = "./rcs/",
         macro_path = "./rcs/",
         morgue_path = "./rcs/%n",
         inprogress_path = "./rcs/running",
         ttyrec_path = "./rcs/ttyrecs/%n",
         socket_path = "./rcs",
-        client_path = "./webserver/game_data/",
+        client_path = "./webserver-v1/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
 ])

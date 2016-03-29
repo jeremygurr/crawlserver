@@ -2,7 +2,8 @@ user=crawl
 uid=1001
 gid=1001
 
-webport=80
-code=/t/dcssca/crawl-ref/source
-crawlserver=/t/dcssca/crawlserver
+webport=8000
+code1=/t
+code2=crawl-ref/source
+crawlserver=/t/crawlserver
 web=/var/crawl
