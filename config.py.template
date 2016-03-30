@@ -59,6 +59,18 @@ games = OrderedDict([
         client_path = "./webserver/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
+    ("dcss-ca-v1.1", dict(
+        name = "DCSS:CA v1.1",
+        crawl_binary = "./bin/crawl-v1.1",
+        rcfile_path = "./rcs/",
+        macro_path = "./rcs/",
+        morgue_path = "./rcs-v1.1/%n",
+        inprogress_path = "./rcs/running",
+        ttyrec_path = "./rcs/ttyrecs/%n",
+        socket_path = "./rcs",
+        client_path = "./webserver/game_data/",
+        morgue_url = "http://crawl.homedns.org/morgue/%n",
+        send_json_options = True)),
 ])
 
 dgl_status_file = "./rcs/status"
