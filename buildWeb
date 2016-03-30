@@ -16,7 +16,7 @@ while true; do
 	cd $web/bin || break
 
 	cd $code || break
-	$make debug-lite || break
+	#$make debug-lite || break
 	cd $web/bin || break
 
 	while true; do

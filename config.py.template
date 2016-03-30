@@ -55,9 +55,9 @@ games = OrderedDict([
         rcfile_path = "./rcs/",
         macro_path = "./rcs/",
         morgue_path = "./rcs/%n",
-        inprogress_path = "./rcs-v1.0/running",
-        ttyrec_path = "./rcs-v1.0/ttyrecs/%n",
-        socket_path = "./rcs-v1.0",
+        inprogress_path = "./rcs/running",
+        ttyrec_path = "./rcs/ttyrecs/%n",
+        socket_path = "./rcs",
         client_path = "./webserver-v1.0/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
@@ -67,9 +67,9 @@ games = OrderedDict([
         rcfile_path = "./rcs/",
         macro_path = "./rcs/",
         morgue_path = "./rcs/%n",
-        inprogress_path = "./rcs-v1.1/running",
-        ttyrec_path = "./rcs-v1.1/ttyrecs/%n",
-        socket_path = "./rcs-v1.1",
+        inprogress_path = "./rcs/running",
+        ttyrec_path = "./rcs/ttyrecs/%n",
+        socket_path = "./rcs",
         client_path = "./webserver-v1.1/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
@@ -89,7 +89,7 @@ max_connections = 100
 # Script to initialize a user, e.g. make sure the paths
 # and the rc file exist. This is not done by the server
 # at the moment.
-init_player_program = "./webserver/init-player.sh"
+init_player_program = "./init-player.sh"
 
 ssl_options = None # No SSL
 #ssl_options = {

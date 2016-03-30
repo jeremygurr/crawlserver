@@ -20,6 +20,8 @@ cd $crawlserver || exit 1
 #rsync -a ${webTarget}/templates/ $web/templates/ || exit 1
 #rsync -a ${webTarget}/static/ $web/static/ || exit 1
 rsync -a banner.html ${web}/templates/ || exit 1
+rsync -a init.txt $web/ || exit 1
+rsync -a init-player.sh $web/ || exit 1
 rm /tmp/confg.py &>/dev/null
 hydrate config.py.template /tmp/config.py || exit 1
 mv /tmp/config.py ${webTarget}/ || exit 1
