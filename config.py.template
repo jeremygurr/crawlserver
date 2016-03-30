@@ -24,10 +24,12 @@ logging_config = {
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
-password_db = "./webserver/passwd.db3"
+latest = "v1.1"
 
-static_path = "./webserver/static"
-template_path = "./webserver/templates/"
+password_db = "./passwd.db3"
+
+static_path = "./webserver-v1.1/static"
+template_path = "./webserver-v1.1/templates/"
 
 # Path for server-side unix sockets (to be used to communicate with crawl)
 server_socket_path = None # Uses global temp dir
