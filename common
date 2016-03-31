@@ -41,6 +41,8 @@ if [ ! -f "$code/contrib/sqlite/Makefile" ]; then
 	cd "$code" || exit 1
     echo "Updating submodules..."
 	git submodule update --init || exit 1
+    cd contrib || exit 1
+    make || exit 1
 fi
 
 # usage: hydrate {from file} {to file}
