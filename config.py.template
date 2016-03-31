@@ -24,10 +24,12 @@ logging_config = {
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
-password_db = "./webserver/passwd.db3"
+latest = "v1.1"
 
-static_path = "./webserver/static"
-template_path = "./webserver/templates/"
+password_db = "./passwd.db3"
+
+static_path = "./webserver-v1.1/static"
+template_path = "./webserver-v1.1/templates/"
 
 # Path for server-side unix sockets (to be used to communicate with crawl)
 server_socket_path = None # Uses global temp dir
@@ -56,7 +58,19 @@ games = OrderedDict([
         inprogress_path = "./rcs/running",
         ttyrec_path = "./rcs/ttyrecs/%n",
         socket_path = "./rcs",
-        client_path = "./webserver/game_data/",
+        client_path = "./webserver-v1.0/game_data/",
+        morgue_url = "http://crawl.homedns.org/morgue/%n",
+        send_json_options = True)),
+    ("dcss-ca-v1.1", dict(
+        name = "DCSS:CA v1.1",
+        crawl_binary = "./bin/crawl-v1.1",
+        rcfile_path = "./rcs/",
+        macro_path = "./rcs/",
+        morgue_path = "./rcs/%n",
+        inprogress_path = "./rcs/running",
+        ttyrec_path = "./rcs/ttyrecs/%n",
+        socket_path = "./rcs",
+        client_path = "./webserver-v1.1/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
 ])
@@ -75,7 +89,7 @@ max_connections = 100
 # Script to initialize a user, e.g. make sure the paths
 # and the rc file exist. This is not done by the server
 # at the moment.
-init_player_program = "./webserver/init-player.sh"
+init_player_program = "./init-player.sh"
 
 ssl_options = None # No SSL
 #ssl_options = {

@@ -10,11 +10,13 @@ make="nice make -j2 NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DG
 unset success
 while true; do
 	mkdir -p $web/bin || break
+	mkdir -p $web/rcs-$v/running || break
+	mkdir -p $web/rcs-$v/ttyrecs || break
 	touch $web/bin/${crawlBin} $web/bin/${crawlBin}.old
 	cd $web/bin || break
 
 	cd $code || break
-	$make debug-lite || break
+	#$make debug-lite || break
 	cd $web/bin || break
 
 	while true; do
