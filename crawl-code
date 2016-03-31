@@ -1,8 +1,3 @@
-heal wand
-  2 turn use
-  recharge loses max charges
-  dwarf ability does same
-  amount of healing based on evo power
 dropping 2 of the same wands don't stack the charges, then picking them up loses some
 picking up 2 of the same wands stores 2 of them in the inv
 orb run: 2 stairs normal, 1 stairs hard
@@ -29,22 +24,48 @@ game breaking changes:
       greater mummy
     show cursed slot when empty
     item description should display curse weight
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     item spawning with curses
     curse level > 1000 disables bonuses
-    documentation
-    test 
-      demigod curse rot
-      other curse rot
-      mummy curse
-      remove curse scroll for demi
-      ...for other
+      attack bonuses
+      defense bonsuses
+      resistance bonsuses
+      super curse in description
+      super curse don't show attributes
+  polish curses
+  test movement
+  equipping item into cursed slot
+  display known objects not working
+  test new heal wands
+  test sludge elf
+  add stubs for remaining changes
+    tags:
+      sp
+      sp_max
+      target_hunger_state
+      motion
+    player.cc
+      sp
+      sp_max
+      target_hunger_state
+      motion
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    potion / scroll types
+    stamina
+    wand auto_charging
+    immolation power level?
+    wand paralysis
+  setup multi track deployment
+    split out rcs
+  deploy
+
   identification
     items have ignorance level
     if ignorance level > 100, can't use / equip
     id scroll reduces ignorance by 2^(intelligence / 5) * 50
     items spawn with various levels of ignorance
   add missing scrolls and potions recently added
+    stamina. infinity -> permanence
   add stamina
     to player
     to display
@@ -53,7 +74,6 @@ game breaking changes:
       key
       movement change
     exhaust -> stamina
-  move ammo to consumable list
 
   wand auto-charging
   immolation monster status support amped version
@@ -94,6 +114,13 @@ when equipping an item to a cursed slot, curse passes to the item, slot uncursed
 range of summon lightning spire?
 show easy mode in % menu
 tengu pickup rings?
+
+new monsters: 
+  witch : curses player
+  
+new species:
+  nightstalker
+  fairy
 
 --------------------------------------------------
 website stats for game list
