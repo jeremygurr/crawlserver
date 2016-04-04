@@ -17,19 +17,18 @@ while true; do
 
 	cd $code || break
 	#$make debug-lite || break
-	cd $web/bin || break
 
 	cd $code || break
 
 	#$make debug-lite install || break
 	$make install || break
 
+	cd $web/bin || break
 	while true; do
 		rm ${crawlBin}.old && break
 		echo "Failed, but will retry in a min..."
 		sleep 60
 	done
-	cd $web/bin || break
 	mv ${crawlBin} ${crawlBin}.old || break
 	mv ${crawlBin}.new ${crawlBin} || break
 
