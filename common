@@ -30,12 +30,14 @@ if [ "$v" == local ]; then
 fi
 
 if [ ! -d "$code" ]; then
+    echo "Cloning repository..."
 	cd "$code1" || exit 1
 	git clone https://github.com/jeremygurr/dcssca.git -b "$v" "dcssca-$v" || exit 1
 fi
 
 if [ ! -f "$code/contrib/sqlite/Makefile" ]; then
 	cd "$code" || exit 1
+    echo "Updating submodules..."
 	git submodule update --init || exit 1
 fi
 
