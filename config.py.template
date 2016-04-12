@@ -24,8 +24,8 @@ logging_config = {
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
-previous = "v1.2"
-latest = "v1.2.1"
+previous = "v1.2.1"
+latest = "v1.2.2"
 
 password_db = "./passwd.db3"
 
