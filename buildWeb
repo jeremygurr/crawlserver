@@ -5,7 +5,7 @@ source common
 v="$1"
 crawlBin="crawl-$v"
 
-make="nice make -j2 NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
+make="nice make -j${J:-2} NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
 
 unset success
 while true; do
