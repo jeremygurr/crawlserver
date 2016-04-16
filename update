@@ -2,7 +2,7 @@
 
 v="$1"
 
-source common 
+J="${J:-2}" source common 
 
 cd "$code" || exit 1
 
@@ -19,7 +19,7 @@ rsync -a webserver/ ${webTarget}/ || exit 1
 cd $crawlserver || exit 1
 #rsync -a ${webTarget}/templates/ $web/templates/ || exit 1
 #rsync -a ${webTarget}/static/ $web/static/ || exit 1
-rsync -a banner.html ${web}/templates/ || exit 1
+rsync -a banner.html ${webTarget}/templates/ || exit 1
 rsync -a init.txt $web/ || exit 1
 rsync -a init-player.sh $web/ || exit 1
 rm /tmp/confg.py &>/dev/null

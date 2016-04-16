@@ -24,12 +24,14 @@ logging_config = {
     "format": "%(asctime)s %(levelname)s: %(message)s"
 }
 
-latest = "v1.1"
+previous = "v1.2.1"
+middle = "v1.2.2"
+latest = "v1.2.3"
 
 password_db = "./passwd.db3"
 
-static_path = "./webserver-v1.1/static"
-template_path = "./webserver-v1.1/templates/"
+static_path = "./webserver-" + latest + "/static"
+template_path = "./webserver-" + latest + "/templates/"
 
 # Path for server-side unix sockets (to be used to communicate with crawl)
 server_socket_path = None # Uses global temp dir
@@ -49,30 +51,42 @@ global_morgue_path = "./rcs"
 # %n in paths and urls is replaced by the current username
 # morgue_url is for a publicly available URL to access morgue_path
 games = OrderedDict([
-    ("dcss-ca-v1.0", dict(
-        name = "DCSS:CA v1.0",
-        crawl_binary = "./bin/crawl-v1.0",
+    ("dcss-ca-" + latest, dict(
+        name = "DCSS:CA " + latest,
+        crawl_binary = "./bin/crawl-" + latest,
         rcfile_path = "./rcs/",
         macro_path = "./rcs/",
-        morgue_path = "./rcs/%n",
+        morgue_path = "./rcs/%n/",
         inprogress_path = "./rcs/running",
         ttyrec_path = "./rcs/ttyrecs/%n",
         socket_path = "./rcs",
-        client_path = "./webserver-v1.0/game_data/",
+        client_path = "./webserver-" + latest + "/game_data/",
         morgue_url = "http://crawl.homedns.org/morgue/%n",
         send_json_options = True)),
-    ("dcss-ca-v1.1", dict(
-        name = "DCSS:CA v1.1",
-        crawl_binary = "./bin/crawl-v1.1",
-        rcfile_path = "./rcs/",
-        macro_path = "./rcs/",
-        morgue_path = "./rcs/%n",
-        inprogress_path = "./rcs/running",
-        ttyrec_path = "./rcs/ttyrecs/%n",
-        socket_path = "./rcs",
-        client_path = "./webserver-v1.1/game_data/",
-        morgue_url = "http://crawl.homedns.org/morgue/%n",
-        send_json_options = True)),
+#    ("dcss-ca-" + previous, dict(
+#        name = "DCSS:CA " + previous,
+#        crawl_binary = "./bin/crawl-" + previous,
+#        rcfile_path = "./rcs/",
+#        macro_path = "./rcs/",
+#        morgue_path = "./rcs/%n",
+#        inprogress_path = "./rcs/running",
+#        ttyrec_path = "./rcs/ttyrecs/%n",
+#        socket_path = "./rcs",
+#        client_path = "./webserver-" + previous + "/game_data/",
+#        morgue_url = "http://crawl.homedns.org/morgue/%n",
+#        send_json_options = True)),
+#    ("dcss-ca-" + middle, dict(
+#        name = "DCSS:CA " + middle,
+#        crawl_binary = "./bin/crawl-" + middle,
+#        rcfile_path = "./rcs/",
+#        macro_path = "./rcs/",
+#        morgue_path = "./rcs/%n",
+#        inprogress_path = "./rcs/running",
+#        ttyrec_path = "./rcs/ttyrecs/%n",
+#        socket_path = "./rcs",
+#        client_path = "./webserver-" + middle + "/game_data/",
+#        morgue_url = "http://crawl.homedns.org/morgue/%n",
+#        send_json_options = True)),
 ])
 
 dgl_status_file = "./rcs/status"
