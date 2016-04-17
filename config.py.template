@@ -26,7 +26,7 @@ logging_config = {
 
 previous = "v1.2.1"
 middle = "v1.2.2"
-latest = "v1.2.3"
+latest = "v1.3"
 
 base_shared = "/var/crawl"
 base_v = base_shared + "/" + latest
