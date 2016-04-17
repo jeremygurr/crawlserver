@@ -11,11 +11,7 @@ git pull || exit 1
 cd $crawlserver || exit 1
 source buildWeb "$@" || exit 1
 
-webTarget="$web/webserver-$v"
-
-if [ "$1" == local ]; then
-    webTarget="$web/webserver-$2"
-fi
+webTarget="$web/webserver"
 
 cd $code || exit 1
 rsync -a webserver/ ${webTarget}/ || exit 1
@@ -24,8 +20,8 @@ cd $crawlserver || exit 1
 #rsync -a ${webTarget}/templates/ $web/templates/ || exit 1
 #rsync -a ${webTarget}/static/ $web/static/ || exit 1
 rsync -a banner.html ${webTarget}/templates/ || exit 1
-rsync -a init.txt $web/ || exit 1
-rsync -a init-player.sh $web/ || exit 1
+rsync -a init.txt $commonWeb/ || exit 1
+rsync -a init-player.sh $commonWeb/ || exit 1
 rm /tmp/confg.py &>/dev/null
 hydrate config.py.template /tmp/config.py || exit 1
 mv /tmp/config.py ${webTarget}/ || exit 1

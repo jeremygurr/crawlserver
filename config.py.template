@@ -28,10 +28,12 @@ previous = "v1.2.1"
 middle = "v1.2.2"
 latest = "v1.2.3"
 
-password_db = "./passwd.db3"
+base_shared = "/var/crawl"
+base_v = base_shared + "/" + latest
 
-static_path = "./webserver-" + latest + "/static"
-template_path = "./webserver-" + latest + "/templates/"
+password_db = base_shared + "/passwd.db3"
+static_path = base_v + "/webserver/static"
+template_path = base_v + "/webserver/templates/"
 
 # Path for server-side unix sockets (to be used to communicate with crawl)
 server_socket_path = None # Uses global temp dir
@@ -45,7 +47,7 @@ game_data_no_cache = True
 # Watch socket dirs for games not started by the server
 watch_socket_dirs = False
 
-global_morgue_path = "./rcs"
+global_morgue_path = base_shared + "/rcs/"
 
 # Game configs
 # %n in paths and urls is replaced by the current username
@@ -53,46 +55,22 @@ global_morgue_path = "./rcs"
 games = OrderedDict([
     ("dcss-ca-" + latest, dict(
         name = "DCSS:CA " + latest,
-        crawl_binary = "./bin/crawl-" + latest,
-        rcfile_path = "./rcs/",
-        macro_path = "./rcs/",
-        morgue_path = "./rcs/%n/",
-        inprogress_path = "./rcs/running",
-        ttyrec_path = "./rcs/ttyrecs/%n",
-        socket_path = "./rcs",
-        client_path = "./webserver-" + latest + "/game_data/",
-        morgue_url = "http://crawl.homedns.org/morgue/%n",
+        crawl_binary = base_v + "/bin/crawl",
+        rcfile_path = base_shared + "/rcs/",
+        macro_path = base_shared + "/rcs/",
+        morgue_path = base_shared + "/rcs/%n/",
+        inprogress_path = base_shared + "/rcs/running",
+        ttyrec_path = base_shared + "/rcs/ttyrecs/%n",
+        socket_path = base_shared + "/rcs",
+        client_path = base_v + "/webserver/game_data/",
+        morgue_url = "http://crawl.homedns.org/morgue/%n/",
         send_json_options = True)),
-#    ("dcss-ca-" + previous, dict(
-#        name = "DCSS:CA " + previous,
-#        crawl_binary = "./bin/crawl-" + previous,
-#        rcfile_path = "./rcs/",
-#        macro_path = "./rcs/",
-#        morgue_path = "./rcs/%n",
-#        inprogress_path = "./rcs/running",
-#        ttyrec_path = "./rcs/ttyrecs/%n",
-#        socket_path = "./rcs",
-#        client_path = "./webserver-" + previous + "/game_data/",
-#        morgue_url = "http://crawl.homedns.org/morgue/%n",
-#        send_json_options = True)),
-#    ("dcss-ca-" + middle, dict(
-#        name = "DCSS:CA " + middle,
-#        crawl_binary = "./bin/crawl-" + middle,
-#        rcfile_path = "./rcs/",
-#        macro_path = "./rcs/",
-#        morgue_path = "./rcs/%n",
-#        inprogress_path = "./rcs/running",
-#        ttyrec_path = "./rcs/ttyrecs/%n",
-#        socket_path = "./rcs",
-#        client_path = "./webserver-" + middle + "/game_data/",
-#        morgue_url = "http://crawl.homedns.org/morgue/%n",
-#        send_json_options = True)),
 ])
 
-dgl_status_file = "./rcs/status"
+dgl_status_file = base_shared + "/rcs/status"
 
 # Set to None not to read milestones
-milestone_file = "./rcs/milestones"
+milestone_file = base_shared + "/rcs/milestones"
 
 status_file_update_rate = 5
 
@@ -103,7 +81,7 @@ max_connections = 100
 # Script to initialize a user, e.g. make sure the paths
 # and the rc file exist. This is not done by the server
 # at the moment.
-init_player_program = "./init-player.sh"
+init_player_program = base_shared + "/init-player.sh"
 
 ssl_options = None # No SSL
 #ssl_options = {

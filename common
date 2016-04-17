@@ -15,11 +15,19 @@ if [ ! -f localConfig ]; then
 fi
 
 source localConfig || exit 1
+commonWeb="$web"
 
 if [ ! "$v" ]; then
 	echo "Missing v"
 	exit 1
 fi
+
+if [ "$v" == local ]; then
+    web="$web/$2"
+else
+    web="$web/$v"
+fi
+
 
 if [ ! "$code1" ]; then
 	echo "Missing code1"
