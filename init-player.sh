@@ -1,9 +1,9 @@
 #!/bin/sh
 
-RCDIR=./rcs/
-INPROGRESSDIR=./rcs/running
-TTYRECDIR=./rcs/ttyrecs/$1
-DEFAULT_RC=./init.txt
+RCDIR=/var/crawl/rcs/
+INPROGRESSDIR=/var/crawl/rcs/running
+TTYRECDIR=/var/crawl/rcs/ttyrecs/$1
+DEFAULT_RC=/var/crawl/init.txt
 PLAYERNAME=$1
 
 mkdir -p $RCDIR

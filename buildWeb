@@ -3,16 +3,16 @@
 source common "$1"
 
 v="$1"
-crawlBin="crawl-$v"
+crawlBin="crawl"
 
 make="nice make -j${J:-2} NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
 
 unset success
 while true; do
 	mkdir -p $web/bin || break
-    mkdir -p $web/rcs || break
-	mkdir -p $web/rcs-$v/running || break
-	mkdir -p $web/rcs-$v/ttyrecs || break
+    mkdir -p $commonWeb/rcs || break
+	mkdir -p $commonWeb/rcs/running || break
+	mkdir -p $commonWeb/rcs/ttyrecs || break
 	touch $web/bin/${crawlBin} $web/bin/${crawlBin}.old
 	cd $web/bin || break
 
