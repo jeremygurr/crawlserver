@@ -13,6 +13,10 @@ source buildWeb "$@" || exit 1
 
 webTarget="$web/webserver-$v"
 
+if [ "$1" == local ]; then
+    webTarget="$web/webserver-$2"
+fi
+
 cd $code || exit 1
 rsync -a webserver/ ${webTarget}/ || exit 1
 
