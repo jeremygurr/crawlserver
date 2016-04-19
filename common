@@ -7,6 +7,11 @@ if [ ! "$1" ]; then
 	exit 1
 fi
 
+unset keep
+if [ "$1" == keep ]; then
+	keep=true
+	shift
+fi
 v="$1"
 
 if [ ! -f localConfig ]; then

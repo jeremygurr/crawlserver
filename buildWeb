@@ -10,7 +10,7 @@ make="nice make -j${J:-2} NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" 
 unset success
 while true; do
 	mkdir -p $web/bin || break
-    mkdir -p $commonWeb/rcs || break
+	mkdir -p $commonWeb/rcs || break
 	mkdir -p $commonWeb/rcs/running || break
 	mkdir -p $commonWeb/rcs/ttyrecs || break
 	touch $web/bin/${crawlBin} $web/bin/${crawlBin}.old
