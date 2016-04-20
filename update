@@ -6,7 +6,7 @@ J="${J:-2}" source common
 
 cd "$code" || exit 1
 
-if [ ! "$keep" [; then
+if [ ! "$keep" ]; then
 	git pull || exit 1
 fi
 
