@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -xv
 v="$1"
 
 J="${J:-2}" source common 
