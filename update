@@ -9,6 +9,7 @@ cd "$code" || exit 1
 if [ ! "$keep" -a "$v" != local ]; then
 	git checkout "$v" || exit 1
 	git pull || exit 1
+	git checkout "$v" || exit 1
 fi
 
 cd $crawlserver || exit 1
