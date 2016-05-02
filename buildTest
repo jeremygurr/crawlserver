@@ -1,0 +1,24 @@
+#!/bin/bash
+
+#make -j4 DEBUG_DIAGNOSTICS=t TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug
+
+v="$1"
+source common 
+
+unset success
+while true; do
+	cd $code || break
+
+    nice make -j${J:-4} TILES=t TARGET_OS_MACOSX=true GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug-lite test || break
+
+	success=true
+    break
+done
+
+if [ "$success" ]; then
+	echo "Successful."
+else
+	echo "Failed!"
+	exit 1
+fi
+
