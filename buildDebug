@@ -9,7 +9,7 @@ unset success
 while true; do
 	cd $code || break
 
-    nice make -j${J:-4} TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug-lite || break
+    nice make -j${J:-4} NOASSERTS=True TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug-lite || break
 
 	success=true
     break
