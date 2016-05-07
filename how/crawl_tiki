@@ -1,4 +1,4 @@
-crawl_tiki_subs="
+tcrawl_tiki_subs="
 mysql
 dbms_status(up)
 db_exists(crawl_tiki)
@@ -10,7 +10,7 @@ crawl_tiki_check()
 {
 local returnValue=0 
 while true; do
-    returnValue=2
+    returnValue=check_subs_code
 	break
 done
 

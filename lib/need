@@ -1,5 +1,8 @@
 # functions for supporting the need framework
 
+# return code for check to return if subs should be checked instead of itself
+check_subs_code=10
+
 unset check
 check()
 {
@@ -12,13 +15,45 @@ while true; do
 	fi
 
 	if ! ${resource}_check 2>/dev/null; then
-		if [ "$(type -t ${resource}_check &>/dev/null)" != function ]; then
+		if [ "$(type -t ${resource}_check)" != function ]; then
 			err "Missing function ${resource}_check"
 			err "It must be defined before 'need $resource' can be executed"
 			err "It should return successfully if the needed service is already running, fail if it isn't"
 		fi
-        fail
+
+        if [ "$?" == check_subs ]; then
+            if [ ! "$(eval "echo \$${resource}_subs")" ]; then
+                err "missing ${resource}_subs which should have been defined in the $resource file"
+                err "This only needs to be defined if ${resource}_check returns check_subs_code, meaning that the subs should be checked."
+                fail
+            fi
+
+            check_subs $resource || fail
+        else
+            fail
+        fi
 	fi
+
+	break
+done
+
+return $returnValue
+}
+
+unset check_subs
+check_subs()
+{
+local returnValue=0
+while true; do
+	resource="$1"
+	if [ ! "$1" ]; then
+		err "Usage: check_subs {resource name}"
+		fail
+	fi
+
+    for sub in $(eval echo \$${resource}_subs); do
+        check $sub || fail
+    done
 
 	break
 done
@@ -33,7 +68,7 @@ local returnValue=0
 while true; do
 	resource="$1"
 	if [ ! "$1" ]; then
-		err "Usage: check {resource name}"
+		err "Usage: fix {resource name}"
 		fail
 	fi
 
