@@ -1,0 +1,44 @@
+#!/bin/bash
+# vim: et:ts=4:sw=4:syntax=sh
+
+shopt -s expand_aliases
+shopt -s extglob
+
+# some simple aliases to make primitive exception mechanism work
+# example:
+#   f() {
+#   returnValue=0
+#   while true; do
+#       echo "first step"
+#       for i in a b c; do
+#           echo "Processing $i"
+#           if [ $i == b ]; then
+#               false || fail
+#           else
+#               true || fail
+#           fi
+#       done
+#       maybeBreak
+#
+#       echo "second step"
+#       break
+#   done
+#   return $returnValue
+#   }
+unalias fail &>/dev/null
+alias fail='{ returnValue=1; break; }'
+# should be placed after any loop inside of an exception catching block
+unalias maybeBreak &>/dev/null
+alias maybeBreak='[ $returnValue == 0 ] || break;'
+
+# can be overridden to support logging, etc.
+unset err
+err() {
+echo "$1" >&2
+}
+
+# can be overridden to support logging, etc.
+unset out
+out() {
+echo "$1"
+}

@@ -1,0 +1,30 @@
+unset mysql_check
+mysql_check()
+{
+returnValue=0 
+while true; do
+	if [ ! "$(which mysql 2>/dev/null)" ]; then
+		err "mysql is not installed yet."
+        fail
+	fi
+
+	break
+done
+
+return $returnValue
+}
+
+unset mysql_fix
+mysql_fix()
+{
+returnValue=0 
+while true; do
+    USE="-perl profiling extraengine" emerge -v mysql || fail
+    emerge --config mysql || fail
+
+	break
+done
+
+return $returnValue
+}
+

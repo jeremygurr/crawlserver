@@ -1,0 +1,101 @@
+# functions for supporting the need framework
+
+unset check
+check()
+{
+local returnValue=0
+while true; do
+	resource="$1"
+	if [ ! "$1" ]; then
+		err "Usage: check {resource name}"
+		fail
+	fi
+
+	if ! ${resource}_check 2>/dev/null; then
+		if [ "$(type -t ${resource}_check &>/dev/null)" != function ]; then
+			err "Missing function ${resource}_check"
+			err "It must be defined before 'need $resource' can be executed"
+			err "It should return successfully if the needed service is already running, fail if it isn't"
+		fi
+        fail
+	fi
+
+	break
+done
+
+return $returnValue
+}
+
+unset fix
+fix()
+{
+local returnValue=0
+while true; do
+	resource="$1"
+	if [ ! "$1" ]; then
+		err "Usage: check {resource name}"
+		fail
+	fi
+
+    if ! ${resource}_fix 2>/dev/null; then
+        if [ "$(type -t ${resource}_fix &>/dev/null)" != function ]; then
+            err "Missing function ${resource}_fix"
+            err "It should be defined before 'need $resource' can be executed"
+            err "It should do whatever is needed for ${resource}_check to pass"
+            fail
+        fi
+
+        fail
+    fi
+
+	break
+done
+
+return $returnValue
+}
+
+unset need
+need() {
+local returnValue=0
+while true; do
+	resource="$1"
+	if [ ! "$1" ]; then
+		err "Usage: need {resource name}"
+		fail
+	fi
+
+	load_how $resource || fail
+    if ! check $resource; then
+        if ! fix $resource; then
+            echo "Failed to fix $resource."
+            fail
+        fi
+	fi
+
+	break
+done
+
+return $returnValue
+}
+
+unset load_how
+load_how() {
+local returnValue=0
+while true; do
+	how_file="$1"
+
+	if [[ ! "$how_loaded" =~ " $how_file " ]]; then
+		if [ ! -f how/$how_file ]; then
+			echo "Can't find required how file: $how_file"
+			fail
+		fi
+
+		source how/$how_file || fail
+		how_loaded="$how_loaded $how_file "
+	fi
+	break
+done
+
+return $returnValue
+}
+

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-source common "$1"
+source buildCommon "$1"
 
 v="$1"
 crawlBin="crawl"
 
-make="nice make -j${J:-2} NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
+make="nice make -j${J:-2} SHAREDDIR=$commonWeb/rcs NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
 
 unset success
 while true; do

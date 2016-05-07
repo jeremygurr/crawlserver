@@ -2,7 +2,7 @@
 
 v="$1"
 
-J="${J:-2}" source common 
+J="${J:-2}" source buildCommon
 
 cd "$code" || exit 1
 
