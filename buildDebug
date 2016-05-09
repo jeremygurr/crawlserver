@@ -3,7 +3,7 @@
 #make -j4 DEBUG_DIAGNOSTICS=t TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug
 
 v="$1"
-source common 
+source buildCommon 
 
 unset success
 while true; do
