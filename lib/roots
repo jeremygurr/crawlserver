@@ -1,0 +1,157 @@
+# functions for supporting the need framework
+
+unset check
+check()
+{
+local return_value=0
+while true; do
+	resources="$*"
+	if [ ! "$1" ]; then
+		fatal "Usage: [deep=true] check {resource name} [{resource name}...]"
+		fail
+	fi
+
+    for resource in $resources; do
+        handle_parameters
+        load_how $resource || fail
+        unset need_to_check_subs
+        outn "Checking $resource..."
+        if ! ${resource}_check ; then
+            out "bad."
+            [ "$fatal_error" ] && fail
+            if [ "$(type -t ${resource}_check)" != function ]; then
+                err "Missing function ${resource}_check."
+                err "It must be defined before 'need $resource' can be executed."
+                err "It should return successfully if the needed service is already running, fail if it isn't."
+            fi
+
+            show_errors        
+            if [ "$deep" ]; then
+                local subs="$(eval echo \$${resource}_subs)"
+                check $subs
+            fi 
+            fail
+        else
+            if [ "$need_to_check_subs" ]; then
+                out "checking subs."
+            else
+                out "good."
+            fi
+        fi
+
+        if [ "$need_to_check_subs" ] || [ "$deep" ]; then
+            if [ "$need_to_check_subs" ] && [ ! "$(eval "echo \$${resource}_subs")" ]; then
+                err "Missing ${resource}_subs which should have been defined in the $resource file."
+                err "This only needs to be defined if ${resource}_check sets need_to_check_subs, meaning that the subs should be checked."
+                fail
+            fi
+
+            local subs="$(eval echo \$${resource}_subs)"
+            check $subs || fail
+        fi
+    done
+    maybe_break
+
+	end_loop
+done
+show_errors
+
+return $return_value
+}
+
+unset fix
+fix() {
+local return_value=0
+while true; do
+	resources="$*"
+	if [ ! "$resources" ]; then
+		fatal "Usage: [level={1 | 2 | 3}] [clean=true] fix {resource name} [{resource name}...]"
+		fail
+	fi
+
+    unset errors fatals
+
+    for resource in $resources; do
+        handle_parameters
+
+        load_how $resource || fail
+        if ! check $resource; then
+            [ "$fatal_error" ] && fail
+
+            local subs="$(eval echo \$${resource}_subs)"
+            local old_fixed="$fixed"
+            unset fixed
+            if [ "$subs" ]; then
+                if ! fix $subs ; then
+                    show_errors
+                    fail
+                fi
+            fi
+
+            if [ "$fixed" ]; then
+                fixed="$old_fixed $fixed"
+                # run the while loop again from the top, since we changed something 
+                redo 
+            else
+                fixed="$old_fixed"
+            fi
+
+            outn "Fixing $resource..."
+            if ! ${resource}_fix ; then
+                [ "$fatal_error" ] && fail
+                if [ "$(type -t ${resource}_fix &>/dev/null)" != function ]; then
+                    err "Missing function ${resource}_fix"
+                    err "It should be defined before 'need $resource' can be executed."
+                    err "It should do whatever is needed for ${resource}_check to pass."
+                fi
+                out "failed."
+                show_errors        
+                fail
+            else
+                check $resource || fail
+            fi
+            fixed="$fixed $resource"
+        fi
+    done
+    maybe_break
+
+	end_loop
+done
+show_errors
+
+return $return_value
+}
+
+unset load_how
+load_how() {
+local return_value=0
+while true; do
+	how_file="$1"
+
+	if [[ ! "$how_loaded" =~ " $how_file " ]]; then
+		if [ ! -f how/$how_file ]; then
+			fatal "Can't find required how file: $how_file"
+			fail
+		fi
+
+		source how/$how_file || fail
+		how_loaded="$how_loaded $how_file "
+	fi
+	end_loop
+done
+
+return $return_value
+}
+
+unset handle_parameters
+handle_parameters() {
+OIFS="$IFS"
+IFS=':'
+parts=( $resource )
+IFS="$OIFS"
+resource="${parts[0]}"
+for part in "${parts[*]:1}"; do
+    eval "$part"
+done
+}
+

@@ -7,7 +7,7 @@ shopt -s extglob
 # some simple aliases to make primitive exception mechanism work
 # example:
 #   f() {
-#   returnValue=0
+#   return_value=0
 #   while true; do
 #       echo "first step"
 #       for i in a b c; do
@@ -18,23 +18,54 @@ shopt -s extglob
 #               true || fail
 #           fi
 #       done
-#       maybeBreak
+#       maybe_break
 #
 #       echo "second step"
-#       break
+#       end_loop
 #   done
-#   return $returnValue
+#   return $return_value
 #   }
 unalias fail &>/dev/null
-alias fail='{ returnValue=1; break; }'
+alias fail='{ return_value=1; break; }'
+# used when the loop needs to be started over
+unalias redo &>/dev/null
+alias redo='{ return_value=2; break; }'
 # should be placed after any loop inside of an exception catching block
-unalias maybeBreak &>/dev/null
-alias maybeBreak='[ $returnValue == 0 ] || break;'
+unalias maybe_break &>/dev/null
+alias maybe_break='[ $return_value == 1 ] && break; [ $return_value == 2 ] && { return_value=0; continue; };'
+unalias end_loop &>/dev/null
+alias end_loop='[ $return_value != 2 ] && break; [ $return_value == 2 ] && { return_value=0; continue; };'
+
+nl=$"\n"
 
 # can be overridden to support logging, etc.
 unset err
-err() {
-echo "$1" >&2
+err() { 
+[ "$errors" ] && errors="$errors "
+errors="${errors}$*"
+}
+
+# can be overridden to support logging, etc.
+unset fatal
+fatal() {
+[ "$fatals" ] && fatals="$fatals "
+fatals="${fatals}$*"
+fatal_error=true
+}
+
+# this can be overridden to write to logfiles, etc.
+unset show_errors
+show_errors() {
+if [ $return_value != 0 ]; then
+    if [ "$fatals" ]; then
+        outerr "$fatals"
+        unset fatals
+    fi
+    if [ "$errors" ]; then
+        outerr "$errors"
+        unset errors
+    fi
+fi
 }
 
 # can be overridden to support logging, etc.
@@ -42,3 +73,14 @@ unset out
 out() {
 echo "$1"
 }
+
+unset outn
+outn() {
+echo -n "$1"
+}
+
+unset outerr
+outerr() {
+echo "$1" >&2
+}
+

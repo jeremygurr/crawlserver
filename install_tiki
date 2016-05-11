@@ -1,11 +1,17 @@
 #!/bin/bash
 source lib/global
-source lib/need
+source lib/roots
 
-returnValue=0 
+return_value=0 
 while true; do
-	need crawl_tiki
-	break
+    unset fatal_error
+    if [ "$1" == debug ]; then
+        shift
+        set -xv
+    fi
+	fix crawl_tiki
+
+	end_loop
 
 	if [ ! "$(pgrep mysqld)" ]; then
 		err "Mysql isn't running yet. So we'll start it."
@@ -15,5 +21,7 @@ while true; do
 	break
 done
 
-exit $returnValue
+show_errors
+
+exit $return_value
 

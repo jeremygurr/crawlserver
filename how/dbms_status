@@ -1,0 +1,59 @@
+unset dbms_status_check
+dbms_status_check()
+{
+return_value=0 
+while true; do
+    local is_up
+    if [ "$(pgrep mysqld)" ]; then
+        is_up=true
+    fi
+
+    case $v in
+        up)
+            if [ ! "$is_up" ]; then
+                err "Mysql isn't running, but should be."
+                fail
+            fi
+            ;;
+        down)
+            if [ "$is_up" ]; then
+                err "Mysql is running, but shouldn't be."
+                fail
+            fi
+            ;;
+        *)
+            err "Usage: v={up | down} dbms_status_check"
+            fail
+            ;;
+    esac
+
+	end_loop
+done
+
+return $return_value
+}
+
+unset dbms_status_fix
+dbms_status_fix()
+{
+return_value=0 
+while true; do
+    case $v in
+        up)
+            service mysql start || fail
+            ;;
+        down)
+            service mysql stop || fail
+            ;;
+        *)
+            err "Usage: v={up | down} dbms_status_fix"
+            fail
+            ;;
+    esac
+
+	end_loop
+done
+
+return $return_value
+}
+

@@ -1,31 +1,26 @@
-tcrawl_tiki_subs="
+crawl_tiki_subs="
 mysql
-dbms_status(up)
-db_exists(crawl_tiki)
-dbms_user(crawl_tiki)
+dbms_status:v=up 
+db_exists:name=crawl_tiki 
+dbms_user:user=crawl_tiki
 "
 
 unset crawl_tiki_check
 crawl_tiki_check()
 {
-local returnValue=0 
-while true; do
-    returnValue=check_subs_code
-	break
-done
-
-return $returnValue
+need_to_check_subs=true
+return 0
 }
 
 unset crawl_tiki_fix
 crawl_tiki_fix()
 {
-local returnValue=0 
+local return_value=0 
 while true; do
 
-	break
+	end_loop
 done
 
-return $returnValue
+return $return_value
 }
 

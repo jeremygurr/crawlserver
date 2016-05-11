@@ -1,5 +1,5 @@
-unset mysql_check
-mysql_check()
+unset _check
+_check()
 {
 return_value=0 
 while true; do
@@ -14,8 +14,8 @@ done
 return $return_value
 }
 
-unset mysql_fix
-mysql_fix()
+unset _fix
+_fix()
 {
 return_value=0 
 while true; do
