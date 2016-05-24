@@ -3,13 +3,16 @@
 #make -j4 DEBUG_DIAGNOSTICS=t TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug
 
 v="$1"
-source common 
+source buildCommon 
 
 unset success
 while true; do
 	cd $code || break
 
-    nice make -j${J:-4} TILES=t TARGET_OS_MACOSX=true GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug-lite test || break
+    set -xv
+    nice make -j${J:-4} TARGET_OS_MACOSX=t WEBTILES=t FULLDEBUG=true GAME="crawlTest" SAVEDIR="/t/crawl/testSaves" debug test || break
+    set +xv
+    #nice make -j${J:-4} TILES=t TARGET_OS_MACOSX=true GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug-lite test || break
 
 	success=true
     break
