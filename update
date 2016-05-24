@@ -26,3 +26,5 @@ if [ "$user" != None ]; then
 	chown -R crawl ${web} || exit 1
 fi
 
+echo -n "Finished on "
+date
