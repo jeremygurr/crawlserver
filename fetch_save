@@ -3,7 +3,7 @@
 source /etc/profile
 source ~/shortcuts.sh
 
-version=${version:-v1.5.2}
+version=${version:-v1.5.4}
 base_folder="/Users/jeremy/Library/Application Support/Dungeon Crawl Stone Soup: Circus Animals"
 save_folder="$base_folder/saves"
 
@@ -22,9 +22,9 @@ rm "$save_folder/.$user.cs"
 rcpp $ple:/var/crawl/$version/.$user.cs "$save_folder/" || exit 1
 if [ "$full" ]; then
     rm "$base_folder/macro.txt"
-    rcpp $ple:/var/crawl/rcs/$user.macro "$base_folder/macro.txt" || exit 1
+    rcpp $ple:/var/crawl/rcs/$user.macro "$base_folder/macro.txt"
     rm ~/init.txt 
-    rcpp $ple:/var/crawl/rcs/$user.rc ~/init.txt || exit 1
+    rcpp $ple:/var/crawl/rcs/$user.rc ~/init.txt
 fi
 
 echo "Successfully downloaded save file for $user."
