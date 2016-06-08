@@ -7,11 +7,29 @@ if [ ! "$1" ]; then
 	exit 1
 fi
 
-unset keep
-if [ "$1" == keep ]; then
-	keep=true
-	shift
-fi
+unset keep debug local nomore
+while true; do
+
+    case "$1" in
+        debug)
+            debug=true
+            shift
+            ;;
+        local)
+            local_code=true
+            shift
+            ;;
+        keep)
+            keep=true
+            shift
+            ;;
+        *)
+            nomore=true
+            ;;
+    esac
+
+    [ "$nomore" ] && break
+done
 v="$1"
 
 if [ ! -f localConfig ]; then
@@ -27,11 +45,7 @@ if [ ! "$v" ]; then
 	exit 1
 fi
 
-if [ "$v" == local ]; then
-    web="$web/$2"
-else
-    web="$web/$v"
-fi
+web="$web/$v"
 
 
 if [ ! "$code1" ]; then
@@ -40,7 +54,7 @@ if [ ! "$code1" ]; then
 fi
 
 code="$code1/dcssca-$v/$code2"
-if [ "$v" == local ]; then
+if [ "$local_code" ]; then
     code="$code1/dcssca/$code2"
 fi
 
@@ -60,7 +74,7 @@ fi
 
 cd "$code" || exit 1
 
-if [ ! "$keep" -a "$v" != local ]; then
+if [ ! "$keep" -a ! "$local_code" ]; then
 	git checkout "$v" || exit 1
 	git pull || exit 1
 	git checkout "$v" || exit 1
