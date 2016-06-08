@@ -24,7 +24,11 @@ while true; do
             shift
             ;;
         *)
-            if [ "$version" ]; then
+            if [ ! "$1" ]; then
+                nomore=true
+                break
+            fi
+            if [ "$version" -a "$1" ]; then
                 echo "I already caught $version for version string. Invalid flag: $1"
                 exit 1
             fi
