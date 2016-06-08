@@ -6,7 +6,8 @@ crawlBin="crawl"
 
 make="nice -n 19 make -j${J:-2} SHAREDDIR=$commonWeb/rcs NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
 if [ "$debug" ]; then
-    debug="debug-lite"
+    #debug="debug-lite"
+    debug="debug"
 fi
 
 unset success
