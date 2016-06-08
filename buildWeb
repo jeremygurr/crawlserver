@@ -6,6 +6,8 @@ v="$1"
 crawlBin="crawl"
 
 make="nice -n 19 make -j${J:-2} SHAREDDIR=$commonWeb/rcs NOASSERTS=True prefix=${web} GAME=\"${crawlBin}.new\" USE_DGAMELAUNCH=y WEBTILES=y"
+unset debug
+#debug="debug-lite"
 
 unset success
 while true; do
@@ -22,10 +24,8 @@ while true; do
 
 	cd $code || break
 
-	echo $make debug-lite install || break
-	$make debug-lite install || break
-	#echo $make install || break
-	#$make install || break
+	echo $make $debug install || break
+	$make $debug install || break
 
 	cd $web/bin || break
 	while true; do
