@@ -55,7 +55,6 @@ fi
 
 web="$web/$version"
 
-
 if [ ! "$code1" ]; then
 	echo "Missing code1"
 	exit 1

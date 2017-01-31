@@ -7,9 +7,13 @@ source buildCommon
 unset success
 while true; do
 	cd $code || break
+    #debug=debug
+    debug=
 
-    #nice make -j${J:-4} NOASSERTS=True TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug || break
-    nice make -j${J:-4} TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" debug || break
+    #nice make -j${J:-4} NOASSERTS=True TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" $debug || break
+    set -xv
+    nice make -j${J:-4} TILES=t GAME="crawlDebug" SAVEDIR="/t/crawl/testSaves" $debug || break
+    set +xv
 
 	success=true
     break
