@@ -14,14 +14,17 @@ while true; do
         debug)
             debug=true
             shift
+            continue
             ;;
         local)
             local_code=true
             shift
+            continue
             ;;
         keep)
             keep=true
             shift
+            continue
             ;;
         *)
             if [ ! "$1" ]; then
@@ -34,6 +37,7 @@ while true; do
             fi
             version="$1"
             shift
+            break
             ;;
     esac
 
@@ -60,15 +64,17 @@ if [ ! "$code1" ]; then
 	exit 1
 fi
 
-code="$code1/dcssca-$version/$code2"
-if [ "$local_code" ]; then
-    code="$code1/dcssca/$code2"
+middle_dir=${base_repo}_web
+if [ ! "$local_code" ]; then
+    middle_dir="${base_repo}_web-$version"
 fi
+code="$code1/${middle_dir}/$code2"
 
+echo code=$code
 if [ ! -d "$code" ]; then
     echo "Cloning repository..."
 	cd "$code1" || exit 1
-	git clone https://github.com/jeremygurr/dcssca.git -b "$version" "dcssca-$version" || exit 1
+	git clone https://github.com/jeremygurr/$base_repo.git -b "$version" "${middle_dir}" || exit 1
 fi
 
 if [ ! -f "$code/contrib/sqlite/Makefile" ]; then

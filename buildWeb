@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source buildCommon "$1"
+source buildCommon "$@"
 
 crawlBin="crawl"
 

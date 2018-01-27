@@ -2,8 +2,10 @@ user=crawl
 uid=1001
 gid=1001
 
+base_repo=dcss_spicy
 webport=8000
 code1=/t
 code2=crawl-ref/source
 crawlserver=/t/crawlserver
 web=/var/crawl
+
